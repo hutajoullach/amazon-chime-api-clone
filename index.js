@@ -18,8 +18,6 @@ app.get("/", (req, res) => {
   res.send("Hello to Amazon Chime API");
 });
 
-// const CONNECTION_URL =
-//   "mongodb+srv://hutaJoullach:Z9MgZFDLseBrRpwC@cluster0.vguq9yx.mongodb.net/?retryWrites=true&w=majority";
 const PORT = process.env.PORT || 5000;
 
 mongoose
