@@ -15,12 +15,6 @@ import {
 
 const router = express.Router();
 
-// router.get("/", getMessages);
-// router.post("/", createMessage);
-// router.patch("/:id", updateMessage);
-// router.delete("/:id", deleteMessage);
-// router.patch("/:id/iconReply", iconReply);
-
 router.get("/", getChannels);
 router.post("/", createChannel);
 router.get("/:channelId", getMessages);

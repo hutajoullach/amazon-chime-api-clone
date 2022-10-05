@@ -1,6 +1,6 @@
 # Node.js, Express & MongoDB Amazon Chime Clone CRUD API
 
-This Amazon Chime Clone CRUD API uses Node.js, Express and MongoDB for the backend.
+This Amazon Chime Clone CRUD API uses Node.js, Express and MongoDB for the backend server.
 
 ## How to use
 

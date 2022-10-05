@@ -31,7 +31,6 @@ const channelSchema = mongoose.Schema(
       required: true,
       minLength: 1,
     },
-    // creator: userSchema,
     creator: {
       type: mongoose.SchemaTypes.ObjectId,
       ref: "User",
@@ -73,13 +72,11 @@ const messageSchema = mongoose.Schema(
       required: true,
       minLength: 1,
     },
-    // creator: userSchema,
     creator: {
       type: mongoose.SchemaTypes.ObjectId,
       ref: "User",
       required: true,
     },
-    // channel: channelSchema,
     channel: {
       type: mongoose.SchemaTypes.ObjectId,
       ref: "Channel",
@@ -87,20 +84,14 @@ const messageSchema = mongoose.Schema(
     },
     selectedFile: [String],
     icon: [iconCountSchema],
-    // icon: [mongoose.SchemaTypes.ObjectId],
     replyToAnother: {
       type: Boolean,
       default: false,
     },
-    // replyMessage: [messageSchema],
     repliedMessage: {
       type: [mongoose.SchemaTypes.ObjectId],
       ref: "MessageBody",
     },
-    // createdAt: {
-    //   type: Date,
-    //   default: new Date(),
-    // },
   },
   {
     timestamps: true,
@@ -111,5 +102,3 @@ export const MessageBody = mongoose.model("MessageBody", messageSchema);
 export const User = mongoose.model("User", userSchema);
 export const Channel = mongoose.model("Channel", channelSchema);
 export const Icon = mongoose.model("Icon", iconSchema);
-
-// export default MessageBody;
