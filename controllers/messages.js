@@ -26,7 +26,7 @@ export const createChannel = async (req, res) => {
 };
 
 export const getMessages = async (req, res) => {
-  const { channelId } = req.param;
+  const channelId = req.params['channelId'];
 
   if (!mongoose.Types.ObjectId.isValid(channelId))
     return res.status(404).send("No Channel with that channel id");
@@ -41,7 +41,7 @@ export const getMessages = async (req, res) => {
 };
 
 export const createMessage = async (req, res) => {
-  const { channelId } = req.param;
+  const channelId = req.params['channelId'];
 
   if (!mongoose.Types.ObjectId.isValid(channelId))
     return res.status(404).send("No Channel with that channel id");
@@ -109,7 +109,8 @@ export const updateMessage = async (req, res) => {
 };
 
 export const replyMessage = async (req, res) => {
-  const { channelId, messageId } = req.param;
+  const channelId = req.params['channelId'];
+  const messageId = req.params['messageId'];
 
   if (!mongoose.Types.ObjectId.isValid(channelId))
     return res.status(404).send("No Channel with that channel id");
@@ -130,9 +131,9 @@ export const replyMessage = async (req, res) => {
 
   try {
     await newMessage.save().then(() => {
-      const repliedMessageBody = await MessageBody.findById(messageId);
+      const repliedMessageBody = MessageBody.findById(messageId);
 
-      updatedMessage = await MessageBody.findByIdAndUpdate(
+      updatedMessage = MessageBody.findByIdAndUpdate(
       messageId,
       {
         repliedMessage: repliedMessageBody.repliedMessage.push(newMessage._id),
@@ -146,7 +147,7 @@ export const replyMessage = async (req, res) => {
       updatedMessage: updatedMessage,
     });
   } catch (error) {
-    res.statues(409).json({ message: error.message });
+    res.status(409).json({ message: error.message });
   }
 };
 
@@ -162,7 +163,7 @@ export const deleteMessage = async (req, res) => {
 };
 
 export const iconReply = async (req, res) => {
-  const { messageId } = req.param;
+  const messageId = req.params['messageId'];
 
   const clickedIcon = req.body;
 
@@ -193,4 +194,45 @@ export const iconReply = async (req, res) => {
   );
 
   res.json(updatedMessage);
+};
+
+export const createUser = async (req, res) => {
+  const user = req.body;
+
+  const newUser = new User(user);
+
+  try {
+    await newUser.save();
+
+    res.status(201).json(newUser);
+  } catch (error) {
+    res.status(409).json({ message: error.message });
+  }
+};
+
+export const updateUser = async (req, res) => {
+  const { userId: _id } = req.params;
+  const user = req.body;
+
+  if (!mongoose.Types.ObjectId.isValid(_id))
+    return res.status(404).send("No User with that user id");
+
+  const updatedUser = await User.findByIdAndUpdate(
+    _id,
+    { ...user, _id },
+    { new: true }
+  );
+
+  res.json(updatedUser);
+};
+
+export const deleteUser = async (req, res) => {
+  const { userId } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(userId))
+    return res.status(404).send("No User with that user id");
+
+  await User.findByIdAndRemove(userId);
+
+  res.json({ message: "User deleted successfully" });
 };

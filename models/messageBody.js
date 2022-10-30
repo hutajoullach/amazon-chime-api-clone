@@ -6,10 +6,10 @@ const userSchema = mongoose.Schema(
       type: String,
       required: true,
       lowercase: true,
-      validate: {
-        validator: (v) => !v.includes("@"),
-        message: (props) => `${props.value} does not contain @ symbol.`,
-      },
+      // validate: {
+      //   validator: (v) => !v.includes("@"),
+      //   message: (props) => `${props.value} does not contain @ symbol.`,
+      // },
     },
     password: String,
     username: {

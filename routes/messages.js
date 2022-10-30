@@ -11,19 +11,25 @@ import {
   replyMessage,
   deleteMessage,
   iconReply,
+  createUser,
+  updateUser,
+  deleteUser,
 } from "../controllers/messages.js";
 
 const router = express.Router();
 
 router.get("/", getChannels);
 router.post("/", createChannel);
-router.get("/:channelId", getMessages);
-router.post("/:channelId", createMessage);
-router.patch("/:channelId", updateChannel);
-router.delete("/:channelId", deleteChannel);
-router.patch("/:channelId/:messageId", updateMessage);
-router.patch("/:channelId/:messageId/replyMessage", replyMessage);
-router.delete("/:channelId/:messageId", deleteMessage);
-router.patch("/:channelId/:messageId/iconReply", iconReply);
+router.patch("/channel/:channelId", updateChannel);
+router.delete("/channel/:channelId", deleteChannel);
+router.get("/channel/:channelId", getMessages);
+router.post("/channel/:channelId", createMessage);
+router.patch("/channel/:channelId/:messageId", updateMessage);
+router.delete("/channel/:channelId/:messageId", deleteMessage);
+router.patch("/channel/:channelId/:messageId/replyMessage", replyMessage);
+router.patch("/channel/:channelId/:messageId/iconReply", iconReply);
+router.post("/signup", createUser);
+router.patch("/user/:userId", updateUser);
+router.delete("/user/:userId", deleteUser);
 
 export default router;
